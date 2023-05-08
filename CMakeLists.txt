@@ -78,14 +78,12 @@ elseif(${IDF_TARGET} STREQUAL "esp32s3")
     add_prebuilt_library(esp_audio_front_end "${CMAKE_CURRENT_SOURCE_DIR}/lib/esp32s3/libesp_audio_front_end.a" PRIV_REQUIRES ${COMPONENT_NAME})
     add_prebuilt_library(hufzip "${CMAKE_CURRENT_SOURCE_DIR}/lib/esp32s3/libhufzip.a" PRIV_REQUIRES ${COMPONENT_NAME})
 
-    idf_component_get_property(esp_dsp_lib espressif__esp-dsp COMPONENT_LIB)
-
     target_link_libraries(${COMPONENT_TARGET} "-Wl,--start-group"
         hufzip
         dl_lib
         fst
         c_speech_features
-        $<TARGET_FILE:${esp_dsp_lib}>
+    esp-dsp
         esp_audio_front_end
         esp_audio_processor
         multinet
